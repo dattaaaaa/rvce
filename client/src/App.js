@@ -12,6 +12,7 @@ import useAuthStore from './store/useAuthStore';
 import ManageUsersPage from './pages/admin/ManageUsersPage';
 import ManageCoursesPage from './pages/admin/ManageCoursesPage';
 import MyCoursesPage from './pages/student/MyCoursesPage';
+import TakeAttendancePage from './pages/professor/TakeAttendancePage'; // New Page
 
 /**
  * A helper component to redirect authenticated users from the root URL ('/')
@@ -20,12 +21,10 @@ import MyCoursesPage from './pages/student/MyCoursesPage';
 function HomeRedirect() {
   const { role, isAuthenticated } = useAuthStore();
   
-  // If the user is not authenticated, send them to the login page.
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
 
-  // Redirect authenticated users based on their role.
   switch (role) {
     case 'admin':
       return <Navigate to="/admin" />;
@@ -36,7 +35,6 @@ function HomeRedirect() {
     case 'recruiter':
       return <Navigate to="/recruiter" />;
     default:
-      // If the role is somehow invalid, log them out and redirect to login.
       return <Navigate to="/login" />;
   }
 }
@@ -45,10 +43,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public Route */}
         <Route path="/login" element={<Login />} />
         
-        {/* Protected Routes Wrapper */}
         <Route element={<PrivateRoute />}>
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminDashboard />} />
@@ -58,21 +54,16 @@ function App() {
           {/* Student Routes */}
           <Route path="/student" element={<StudentDashboard />} />
           <Route path="/student/courses" element={<MyCoursesPage />} />
-          {/* Future student routes can be added here */}
-          {/* <Route path="/student/results" element={<ResultsPage />} /> */}
-          {/* <Route path="/student/fees" element={<FeesPage />} /> */}
 
           {/* Professor Routes */}
           <Route path="/professor" element={<ProfessorDashboard />} />
+          <Route path="/professor/attendance" element={<TakeAttendancePage />} />
           
           {/* Recruiter Routes */}
           <Route path="/recruiter" element={<RecruiterDashboard />} />
         </Route>
         
-        {/* Root path ('/') redirects based on authentication and role */}
         <Route path="/" element={<HomeRedirect />} />
-        
-        {/* Fallback for any other unknown route */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>

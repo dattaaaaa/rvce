@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   employeeId: { type: String, unique: true, sparse: true },
   branch: { type: String },
   year: { type: Number },
+  faceDescriptor: { type: [Number] }, // Field to store face data
 }, { timestamps: true });
 
 // Password hashing middleware

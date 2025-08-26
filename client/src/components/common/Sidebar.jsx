@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
-import { LayoutDashboard, Book, User, Briefcase, LogOut, DollarSign, FileText } from 'lucide-react';
+import { LayoutDashboard, Book, User, Briefcase, LogOut, DollarSign, FileText, Camera } from 'lucide-react';
 import useAuthStore from '../../store/useAuthStore';
 
 const Sidebar = () => {
@@ -29,10 +29,11 @@ const Sidebar = () => {
           { path: '/admin/courses', icon: <Book />, text: 'Manage Courses' },
         ];
       case 'professor':
-        // Add professor links here
-        return [{ path: '/professor', icon: <LayoutDashboard />, text: 'Dashboard' }];
+        return [
+          { path: '/professor', icon: <LayoutDashboard />, text: 'Dashboard' },
+          { path: '/professor/attendance', icon: <Camera />, text: 'Take Attendance' }
+        ];
       case 'recruiter':
-        // Add recruiter links here
         return [{ path: '/recruiter', icon: <Briefcase />, text: 'Find Students' }];
       default:
         return [];
@@ -52,7 +53,7 @@ const Sidebar = () => {
               <NavLink
                 to={link.path}
                 className={({ isActive }) => (isActive ? styles.active : '')}
-                end // Use 'end' for the dashboard link to not match all child routes
+                end={link.path.split('/').length <= 2}
               >
                 {link.icon}
                 <span>{link.text}</span>

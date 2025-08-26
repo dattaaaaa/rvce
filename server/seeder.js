@@ -22,10 +22,20 @@ const importData = async () => {
     const createdUsers = await User.insertMany(users);
     console.log('Users Imported!');
 
-    const createdCourses = await Course.insertMany(courses);
-    console.log('Courses Imported!');
-
+    const professorUser = createdUsers.find(user => user.role === 'professor');
     const studentUser = createdUsers.find(user => user.role === 'student');
+
+    // Assign the professor to the AIML courses before inserting them
+    const coursesWithProfessor = courses.map(course => {
+        if (course.branch === 'AIML') {
+            return { ...course, professor: professorUser._id };
+        }
+        return course;
+    });
+
+    const createdCourses = await Course.insertMany(coursesWithProfessor);
+    console.log('Courses Imported and Professor Assigned!');
+
     const studentCourses = createdCourses.filter(course => course.branch === 'AIML');
 
     const enrollments = studentCourses.map(course => ({
