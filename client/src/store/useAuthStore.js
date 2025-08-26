@@ -33,6 +33,7 @@ const useAuthStore = create(
         });
       },
       logout: () => set({ user: null, token: null, isAuthenticated: false, role: null }),
+      setAuthentication: (isAuthenticated) => set({ isAuthenticated }),
     }),
     {
       name: 'auth-storage', // name of the item in storage (must be unique)

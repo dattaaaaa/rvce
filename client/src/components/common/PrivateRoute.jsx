@@ -1,9 +1,9 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import useAuthStore from '../../store/useAuthStore';
 
 const PrivateRoute = () => {
-  // This logic will be replaced with actual authentication check from context/redux
-  const isAuthenticated = true; // Placeholder
+  const { isAuthenticated } = useAuthStore();
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };

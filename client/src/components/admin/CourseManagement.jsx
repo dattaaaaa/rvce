@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Trash2 } from 'lucide-react';
 import styles from '../../pages/admin/AdminPages.module.css';
 
-const CourseManagement = ({ courses, handleAddCourse, handleDeleteCourse }) => {
+const CourseManagement = ({ courses = [], handleAddCourse, handleDeleteCourse }) => {
     const [newCourse, setNewCourse] = useState({
         courseCode: '', courseName: '', branch: 'AIML', semester: '', year: '', credits: ''
     });

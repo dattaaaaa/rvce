@@ -2,7 +2,7 @@ import React from 'react';
 import { Trash2 } from 'lucide-react';
 import styles from '../../pages/admin/AdminPages.module.css';
 
-const UserManagementTable = ({ users, handleDelete }) => {
+const UserManagementTable = ({ users = [], handleDelete }) => {
     return (
         <div className={styles.tableContainer}>
             <table className={styles.table}>
