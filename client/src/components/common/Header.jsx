@@ -1,11 +1,10 @@
 import React from 'react';
 import styles from './Header.module.css';
 import { Bell, UserCircle } from 'lucide-react'; // Using lucide-react for icons
+import useAuthStore from '../../store/useAuthStore';
 
 const Header = () => {
-  // Mock user data - this will come from auth context later
-  const userName = "Vishnu S";
-  const userRole = "Student";
+  const { user } = useAuthStore();
 
   return (
     <header className={styles.header}>
@@ -19,8 +18,8 @@ const Header = () => {
         <div className={styles.userInfo}>
           <UserCircle size={36} />
           <div className={styles.userDetails}>
-            <span className={styles.userName}>{userName}</span>
-            <span className={styles.userRole}>{userRole}</span>
+            <span className={styles.userName}>{user?.name}</span>
+            <span className={styles.userRole}>{user?.role}</span>
           </div>
         </div>
       </div>

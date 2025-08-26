@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/common/Layout';
+import Card from '../components/common/Card';
+import api from '../services/api';
 import UserManagementTable from '../components/admin/UserManagementTable';
 import CourseManagement from '../components/admin/CourseManagement';
+import AddUserForm from '../components/admin/AddUserForm';
 import styles from './Dashboard.module.css';
-import api from '../services/api';
-import Card from '../components/common/Card';
 
 const AdminDashboard = () => {
     const [users, setUsers] = useState([]);
@@ -29,6 +30,16 @@ const AdminDashboard = () => {
     useEffect(() => {
         fetchData();
     }, []);
+
+    const handleAddUser = async (userData) => {
+        try {
+            await api.post('/admin/register', userData);
+            fetchData(); // Refresh list
+        } catch (error) {
+            console.error("Failed to add user", error);
+            alert('Failed to add user. Check if the email is unique.');
+        }
+    };
 
     const handleDeleteUser = async (userId) => {
         if (window.confirm('Are you sure you want to delete this user?')) {
@@ -70,7 +81,12 @@ const AdminDashboard = () => {
 
     return (
         <Layout>
-            <div className={styles.dashboardGrid}>
+             <div className={styles.dashboardGrid}>
+                <div className={styles.spanTwo}>
+                    <Card title="Add New User">
+                        <AddUserForm handleAddUser={handleAddUser} />
+                    </Card>
+                </div>
                 <div className={styles.spanTwo}>
                     <Card title="Manage Users">
                         <UserManagementTable users={users} handleDelete={handleDeleteUser} />
