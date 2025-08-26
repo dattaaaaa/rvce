@@ -72,24 +72,27 @@ const AttendanceCamera = ({ students, courseName, onClose }) => {
                 faceapi.matchDimensions(canvasRef.current, displaySize);
 
                 const detections = await faceapi.detectAllFaces(videoRef.current, new faceapi.SsdMobilenetv1Options()).withFaceLandmarks().withFaceDescriptors();
-                const resizedDetections = faceapi.resizeResults(detections, displaySize);
+                
+                if (canvasRef.current) {
+                    const resizedDetections = faceapi.resizeResults(detections, displaySize);
 
-                const context = canvasRef.current.getContext('2d');
-                context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+                    const context = canvasRef.current.getContext('2d');
+                    context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
-                const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor));
+                    const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor));
 
-                results.forEach((result, i) => {
-                    const box = resizedDetections[i].detection.box;
-                    const studentUSN = result.label;
-                    const studentName = studentNameMap[studentUSN] || 'Unknown';
-                    const drawBox = new faceapi.draw.DrawBox(box, { label: studentName });
-                    drawBox.draw(canvasRef.current);
+                    results.forEach((result, i) => {
+                        const box = resizedDetections[i].detection.box;
+                        const studentUSN = result.label;
+                        const studentName = studentNameMap[studentUSN] || 'Unknown';
+                        const drawBox = new faceapi.draw.DrawBox(box, { label: studentName });
+                        drawBox.draw(canvasRef.current);
 
-                    if (studentUSN !== 'unknown') {
-                        setPresentStudents(prev => new Set(prev).add(studentUSN));
-                    }
-                });
+                        if (studentUSN !== 'unknown') {
+                            setPresentStudents(prev => new Set(prev).add(studentUSN));
+                        }
+                    });
+                }
             }
         }, 300);
     };
