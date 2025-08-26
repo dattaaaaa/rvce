@@ -4,6 +4,7 @@ import Card from '../components/common/Card';
 import api from '../services/api';
 import styles from './ProfessorDashboard.module.css';
 import EnrolledStudentsList from '../components/professor/EnrolledStudentsList';
+import { FiSearch, FiBook } from 'react-icons/fi'; // Using react-icons for icons
 
 const ProfessorDashboard = () => {
     const [courses, setCourses] = useState([]);
@@ -11,6 +12,7 @@ const ProfessorDashboard = () => {
     const [students, setStudents] = useState([]);
     const [loadingCourses, setLoadingCourses] = useState(true);
     const [loadingStudents, setLoadingStudents] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -39,22 +41,42 @@ const ProfessorDashboard = () => {
         }
     };
 
+    const filteredCourses = courses.filter(course =>
+        course.courseName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.courseCode.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <Layout>
             <div className={styles.dashboardContainer}>
                 <div className={styles.sidebar}>
                     <Card>
-                        <h3 className={styles.sidebarTitle}>My Courses</h3>
-                        {loadingCourses ? <p>Loading...</p> : (
+                        <div className={styles.sidebarHeader}>
+                            <h3 className={styles.sidebarTitle}>My Courses</h3>
+                            <div className={styles.searchContainer}>
+                                <FiSearch className={styles.searchIcon} />
+                                <input
+                                    type="text"
+                                    placeholder="Search courses..."
+                                    className={styles.searchInput}
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        {loadingCourses ? <div className={styles.loader}></div> : (
                             <ul className={styles.courseList}>
-                                {courses.map(course => (
-                                    <li 
-                                        key={course._id} 
-                                        className={selectedCourse?._id === course._id ? styles.active : ''}
+                                {filteredCourses.map(course => (
+                                    <li
+                                        key={course._id}
+                                        className={`${styles.courseItem} ${selectedCourse?._id === course._id ? styles.active : ''}`}
                                         onClick={() => handleCourseSelect(course)}
                                     >
-                                        <span className={styles.courseCode}>{course.courseCode}</span>
-                                        <span className={styles.courseName}>{course.courseName}</span>
+                                        <FiBook className={styles.courseIcon} />
+                                        <div className={styles.courseInfo}>
+                                            <span className={styles.courseCode}>{course.courseCode}</span>
+                                            <span className={styles.courseName}>{course.courseName}</span>
+                                        </div>
                                     </li>
                                 ))}
                             </ul>
@@ -63,15 +85,18 @@ const ProfessorDashboard = () => {
                 </div>
                 <div className={styles.mainContent}>
                     {selectedCourse ? (
-                        <EnrolledStudentsList 
+                        <EnrolledStudentsList
                             course={selectedCourse}
                             students={students}
                             loading={loadingStudents}
                         />
                     ) : (
                         <div className={styles.placeholder}>
+                            <div className={styles.placeholderIcon}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                            </div>
                             <h2>Welcome, Professor!</h2>
-                            <p>Select a course from the list on the left to view enrolled students and manage grades.</p>
+                            <p>Select a course from the list to view enrolled students and manage grades.</p>
                         </div>
                     )}
                 </div>

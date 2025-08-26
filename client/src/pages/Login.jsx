@@ -60,7 +60,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="e.g., admin@rvce.edu.in"
+              placeholder="e.g., example@rvce.edu.in"
             />
           </div>
           <div className={styles.inputGroup}>
@@ -71,7 +71,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Default is 'password123'"
+              placeholder=""
             />
           </div>
           {error && <p className={styles.error}>{error}</p>}

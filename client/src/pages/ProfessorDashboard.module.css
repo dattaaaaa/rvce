@@ -1,60 +1,125 @@
+:root {
+    --primary-color: #4f46e5;
+    --primary-color-light: #675ff0;
+    --border-color: #e5e7eb;
+    --card-bg: #ffffff;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --background-color: #f9fafb;
+}
+
 .dashboardContainer {
     display: flex;
     gap: 2rem;
-    height: 100%;
+    height: calc(100vh - 80px); /* Adjust based on header height */
+    padding: 2rem;
+    background-color: var(--background-color);
 }
 
 .sidebar {
-    width: 320px;
+    width: 350px;
     flex-shrink: 0;
 }
 
 .mainContent {
     flex-grow: 1;
+    overflow-y: auto;
+}
+
+.sidebarHeader {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .sidebarTitle {
-    padding: 1.5rem;
-    margin: 0;
-    font-size: 1.25rem;
-    border-bottom: 1px solid var(--border-color);
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.searchContainer {
+    position: relative;
+}
+
+.searchIcon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+}
+
+.searchInput {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
 }
 
 .courseList {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    max-height: 60vh;
+    overflow-y: auto;
 }
 
-.courseList li {
-    padding: 1rem 1.5rem;
+.courseItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
     cursor: pointer;
     border-bottom: 1px solid var(--border-color);
     transition: background-color 0.2s;
 }
 
-.courseList li:last-child {
+.courseItem:last-child {
     border-bottom: none;
 }
 
-.courseList li:hover {
-    background-color: #f9fafb;
+.courseItem:hover {
+    background-color: #f3f4f6;
 }
 
-.courseList li.active {
+.courseItem.active {
     background-color: var(--primary-color);
     color: white;
 }
 
+.courseItem.active .courseName,
+.courseItem.active .courseIcon {
+    color: white;
+    opacity: 0.9;
+}
+
+.courseIcon {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.courseInfo {
+    display: flex;
+    flex-direction: column;
+}
+
 .courseCode {
     font-weight: 600;
-    display: block;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 
 .courseName {
-    font-size: 0.85rem;
-    opacity: 0.8;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
 }
 
 .placeholder {
@@ -65,77 +130,50 @@
     height: 100%;
     text-align: center;
     background-color: var(--card-bg);
-    border-radius: 8px;
+    border-radius: 12px;
     border: 1px solid var(--border-color);
+    padding: 2rem;
+}
+
+.placeholderIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background-color: #eef2ff;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+}
+
+.placeholderIcon svg {
+    color: var(--primary-color);
 }
 
 .placeholder h2 {
-    font-size: 1.75rem;
+    font-size: 2rem;
+    font-weight: 600;
     color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
 }
 
 .placeholder p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--text-secondary);
-    max-width: 400px;
+    max-width: 450px;
 }
 
-.cardHeader {
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border-color);
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 2rem auto;
 }
 
-.cardHeader h3 {
-    margin: 0;
-    font-size: 1.2rem;
-}
-
-.cardHeader span {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-.tableContainer {
-    padding: 0.5rem;
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th, .table td {
-    padding: 0.85rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.table th {
-    background-color: #f9fafb;
-    font-weight: 500;
-    color: var(--text-secondary);
-}
-
-.gradeInput {
-    width: 100px;
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    font-size: 0.9rem;
-}
-
-.submitContainer {
-    padding: 1.5rem;
-    text-align: right;
-    border-top: 1px solid var(--border-color);
-}
-
-.submitButton {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
