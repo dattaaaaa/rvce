@@ -1,0 +1,141 @@
+.dashboardContainer {
+    display: flex;
+    gap: 2rem;
+    height: 100%;
+}
+
+.sidebar {
+    width: 320px;
+    flex-shrink: 0;
+}
+
+.mainContent {
+    flex-grow: 1;
+}
+
+.sidebarTitle {
+    padding: 1.5rem;
+    margin: 0;
+    font-size: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.courseList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.courseList li {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s;
+}
+
+.courseList li:last-child {
+    border-bottom: none;
+}
+
+.courseList li:hover {
+    background-color: #f9fafb;
+}
+
+.courseList li.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.courseCode {
+    font-weight: 600;
+    display: block;
+    font-size: 0.95rem;
+}
+
+.courseName {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.placeholder h2 {
+    font-size: 1.75rem;
+    color: var(--text-primary);
+}
+
+.placeholder p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 400px;
+}
+
+.cardHeader {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cardHeader h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.cardHeader span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.tableContainer {
+    padding: 0.5rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table th {
+    background-color: #f9fafb;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.gradeInput {
+    width: 100px;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.submitContainer {
+    padding: 1.5rem;
+    text-align: right;
+    border-top: 1px solid var(--border-color);
+}
+
+.submitButton {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}

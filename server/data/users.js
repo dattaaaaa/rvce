@@ -11,13 +11,20 @@ const users = [
     password: hashedPassword,
     role: 'admin',
   },
-  // 2. Professor for AIML
+  // 2. Professors
   {
     name: 'Dr. S. K. Singh',
     email: 'sksingh@rvce.edu.in',
     password: hashedPassword,
     role: 'professor',
     employeeId: 'RVCE-PROF-001',
+  },
+  {
+    name: 'Dr. Rashmi R',
+    email: 'rashmi.r@rvce.edu.in',
+    password: hashedPassword,
+    role: 'professor',
+    employeeId: 'RVCE-PROF-002',
   },
   // 3. Students (AIML)
   {
@@ -28,7 +35,6 @@ const users = [
     usn: '1RV22AI024',
     branch: 'AIML',
     year: 3,
-    semester: 5
   },
   {
     name: 'Ananya Sharma',
@@ -38,7 +44,15 @@ const users = [
     usn: '1RV22AI005',
     branch: 'AIML',
     year: 3,
-    semester: 5
+  },
+  {
+    name: 'Rohan Gupta',
+    email: 'rohan.ai22@rvce.edu.in',
+    password: hashedPassword,
+    role: 'student',
+    usn: '1RV22AI045',
+    branch: 'AIML',
+    year: 3,
   },
   // 4. Recruiter
   {
